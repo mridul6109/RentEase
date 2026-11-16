@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentEase | Find Your Space in Dehradun</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="nav-inner">
+    <a class="brand" href="#" id="homeLogo">Rent<span>Ease</span><small>DEHRADUN</small></a>
+    <div class="nav-actions">
+      <span id="headerUser"></span>
+      <button class="btn btn-light hidden" id="dashboardBtn">Dashboard</button>
+      <button class="btn btn-outline hidden" id="logoutBtn">Logout</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="authScreen" class="screen auth-screen">
+    <div class="auth-hero">
+      <div class="auth-copy">
+        <span class="eyebrow">ROOMS AND PGs IN DEHRADUN</span>
+        <h1>Find a room<br>in <em>Dehradun.</em></h1>
+        <p>Browse room listings in Dehradun, compare rent and contact owners.</p>
+        <div class="hero-points">
+          <span>✓ Local Dehradun listings</span>
+          <span>✓ Compare rooms easily</span>
+          <span>✓ Request a room visit online</span>
+        </div>
+      </div>
+
+      <div class="auth-card">
+        <div class="auth-tabs">
+          <button class="auth-tab active" id="loginTab">Login</button>
+          <button class="auth-tab" id="signupTab">Create account</button>
+        </div>
+
+        <div class="role-picker">
+          <p>I want to continue as</p>
+          <div class="role-buttons">
+            <button type="button" class="role-btn active" id="buyerRoleBtn">Looking for a room</button>
+            <button type="button" class="role-btn" id="ownerRoleBtn">Room owner</button>
+          </div>
+          <small id="selectedRoleText">Buyer account selected</small>
+        </div>
+
+        <form id="loginForm">
+          <h2>Welcome back</h2>
+          <label>Email address</label>
+          <input type="email" id="loginEmail" placeholder="you@example.com" required>
+          <label>Password</label>
+          <input type="password" id="loginPassword" placeholder="Enter your password" required>
+          <button class="btn btn-primary full" type="submit">Login to RentEase</button>
+          <p class="form-message" id="loginMessage"></p>
+          <p class="switch-copy">New here? <a href="#" id="goSignup">Create an account</a></p>
+        </form>
+
+        <form id="signupForm" class="hidden">
+          <h2>Create your account</h2>
+          <label>Full name</label>
+          <input type="text" id="signupName" placeholder="Your name" required>
+          <label>Phone number</label>
+          <input type="tel" id="signupPhone" placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
+          <label>Email address</label>
+          <input type="email" id="signupEmail" placeholder="you@example.com" required>
+          <label>Password</label>
+          <input type="password" id="signupPassword" placeholder="At least 6 characters" minlength="6" required>
+          <button class="btn btn-primary full" type="submit">Create account</button>
+          <p class="form-message" id="signupMessage"></p>
+          <p class="switch-copy">Already registered? <a href="#" id="goLogin">Login</a></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="dashboardScreen" class="screen hidden section-wrap">
+    <div class="welcome-banner">
+      <div>
+        <span class="eyebrow">DASHBOARD</span>
+        <h1>Hello, <span id="dashboardName">there</span>!</h1>
+        <p id="dashboardEmail"></p>
+      </div>
+      <div class="welcome-icon">⌂</div>
+    </div>
+
+    <div class="dashboard-grid">
+      <article class="dashboard-card" id="buyerDashboardCard">
+        <div class="dashboard-icon">⌕</div>
+        <h2>Find a room</h2>
+        <p>Search listings, compare rooms and request a visit.</p>
+        <button class="btn btn-primary" id="openBuyer">Explore rooms</button>
+      </article>
+
+      <article class="dashboard-card" id="ownerDashboardCard">
+        <div class="dashboard-icon">＋</div>
+        <h2>List your room</h2>
+        <p>Add your room details and manage visit requests.</p>
+        <button class="btn btn-primary" id="openOwner">Manage listings</button>
+      </article>
+    </div>
+  </section>
+
+  <section id="buyerScreen" class="screen hidden section-wrap">
+    <div class="page-heading">
+      <div>
+        <span class="eyebrow">EXPLORE DEHRADUN</span>
+        <h1>Find your next <em>home.</em></h1>
+        <p>Search by area, rent and room type.</p>
+      </div>
+      <button class="btn btn-light" id="buyerBack">← Dashboard</button>
+    </div>
+
+    <div class="search-panel">
+      <div class="search-main">
+        <input id="searchInput" type="search" placeholder="Search area, PG name or landmark...">
+        <button class="btn btn-primary" id="searchBtn">Search</button>
+      </div>
+
+      <div class="filter-grid">
+        <div>
+          <label for="locationFilter">Area</label>
+          <select id="locationFilter">
+            <option value="">All Dehradun areas</option>
+            <option value="Prem Nagar">Prem Nagar</option>
+            <option value="Sahastradhara">Sahastradhara Road</option>
+            <option value="Raipur">Raipur</option>
+            <option value="Clement Town">Clement Town</option>
+            <option value="Mussoorie">Mussoorie Road</option>
+            <option value="Jakhan">Jakhan</option>
+            <option value="Turner Road">Turner Road</option>
+          </select>
+        </div>
+        <div>
+          <label for="minBudget">Minimum rent (₹)</label>
+          <input type="number" id="minBudget" min="0" placeholder="0">
+        </div>
+        <div>
+          <label for="maxBudget">Maximum rent (₹)</label>
+          <input type="number" id="maxBudget" min="0" placeholder="Any">
+        </div>
+        <div>
+          <label for="typeFilter">Room type</label>
+          <select id="typeFilter">
+            <option value="">All types</option>
+            <option>Single Room</option>
+            <option>Double Sharing</option>
+            <option>Triple Sharing</option>
+            <option>1 BHK</option>
+            <option>2 BHK</option>
+          </select>
+        </div>
+        <div>
+          <label for="genderFilter">Preference</label>
+          <select id="genderFilter">
+            <option value="">Any preference</option>
+            <option>Boys</option>
+            <option>Girls</option>
+            <option>Any</option>
+          </select>
+        </div>
+        <div>
+          <label for="sortFilter">Sort by</label>
+          <select id="sortFilter">
+            <option value="newest">Newest first</option>
+            <option value="low">Lowest rent first · Priority Queue</option>
+            <option value="high">Rent: high to low</option>
+            <option value="name">Name: A to Z</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="filter-bottom">
+        <label class="check-label"><input type="checkbox" id="availableOnly"> Available rooms only</label>
+        <button class="btn btn-outline btn-small" id="clearFilters">Clear filters</button>
+      </div>
+    </div>
+
+    <div class="listing-heading">
+      <div>
+        <h2>Rooms around Dehradun</h2>
+        <p id="roomCount">0 rooms found</p>
+      </div>
+      <span class="local-tag">📍 Dehradun, Uttarakhand</span>
+    </div>
+
+    <div id="roomContainer" class="room-grid"></div>
+
+    <section class="area-network" aria-labelledby="areaNetworkTitle">
+      <div class="area-network-copy">
+        <span class="eyebrow">EXPLORE DEHRADUN</span>
+        <h2 id="areaNetworkTitle">Nearby areas</h2>
+        <p>Select an area to include the localities connected to it in your search.</p>
+      </div>
+
+      <div class="area-network-controls">
+        <label for="includeConnectedAreas" class="check-label">
+          <input type="checkbox" id="includeConnectedAreas">
+          Include directly connected areas in my search
+        </label>
+
+        <div id="locationGraphVisual" class="location-graph-visual" aria-label="Connected Dehradun localities"></div>
+
+        <details class="connection-editor">
+          <summary>Manage locality connections</summary>
+          <form id="graphConnectionForm" class="graph-form">
+            <input id="graphFrom" type="text" list="graphLocalityOptions" placeholder="From locality" maxlength="45" required>
+            <input id="graphTo" type="text" list="graphLocalityOptions" placeholder="To locality" maxlength="45" required>
+            <input id="graphDistance" type="number" min="0.1" max="500" step="0.1" placeholder="Distance (km)" required>
+            <button class="btn btn-outline btn-small" type="submit">Add connection</button>
+            <datalist id="graphLocalityOptions"></datalist>
+          </form>
+          <p id="graphMessage" class="dsa-message" aria-live="polite">Connections are saved in this browser. Enter distances you have checked yourself.</p>
+          <div id="graphConnectionList" class="graph-connection-list"></div>
+        </details>
+      </div>
+
+      <p class="network-note">Connections and distances are entered manually. They are not live road directions.</p>
+    </section>
+
+    <section class="compare-section">
+      <div class="section-heading left-heading">
+        <span class="eyebrow">ROOM COMPARISON</span>
+        <h2>Compare your rooms</h2>
+        <p>Select up to two listings to compare their details.</p>
+      </div>
+      <div id="compareContent" class="compare-content">
+        <div class="empty-state">Your comparison is empty. Add a room to get started.</div>
+      </div>
+    </section>
+  </section>
+
+  <section id="ownerScreen" class="screen hidden section-wrap">
+    <div class="page-heading">
+      <div>
+        <span class="eyebrow">FOR PROPERTY OWNERS</span>
+        <h1>List your <em>space.</em></h1>
+        <p>Add or update the rooms you have available.</p>
+      </div>
+      <button class="btn btn-light" id="ownerBack">← Dashboard</button>
+    </div>
+
+    <div class="owner-layout">
+      <form id="roomForm" class="owner-form">
+        <h2>Add a room listing</h2>
+        <p class="muted">Fill in the details below. Your listing will be saved in this browser.</p>
+
+        <label for="roomName">Listing / PG name</label>
+        <input type="text" id="roomName" placeholder="e.g. PG near Prem Nagar" required>
+
+        <label for="location">Location in Dehradun</label>
+        <input type="text" id="location" placeholder="e.g. Prem Nagar, Dehradun" required>
+
+        <div class="form-two">
+          <div>
+            <label for="rent">Monthly rent (₹)</label>
+            <input type="number" id="rent" min="1" placeholder="6500" required>
+          </div>
+          <div>
+            <label for="roomType">Room type</label>
+            <select id="roomType" required>
+              <option value="">Choose type</option>
+              <option>Single Room</option>
+              <option>Double Sharing</option>
+              <option>Triple Sharing</option>
+              <option>1 BHK</option>
+              <option>2 BHK</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="genderPreference">Suitable for</label>
+        <select id="genderPreference" required>
+          <option value="">Choose preference</option>
+          <option>Boys</option>
+          <option>Girls</option>
+          <option>Any</option>
+        </select>
+
+        <label>Facilities available</label>
+        <div class="amenity-grid">
+          <label class="check-label"><input type="checkbox" name="roomAmenity" value="Wi-Fi"> Wi-Fi</label>
+          <label class="check-label"><input type="checkbox" name="roomAmenity" value="AC"> AC</label>
+          <label class="check-label"><input type="checkbox" name="roomAmenity" value="Food"> Food</label>
+          <label class="check-label"><input type="checkbox" name="roomAmenity" value="Furnished"> Furnished</label>
+          <label class="check-label"><input type="checkbox" name="roomAmenity" value="Parking"> Parking</label>
+          <label class="check-label"><input type="checkbox" name="roomAmenity" value="Attached Bathroom"> Attached bathroom</label>
+          <label class="check-label"><input type="checkbox" name="roomAmenity" value="CCTV"> CCTV</label>
+          <label class="check-label"><input type="checkbox" name="roomAmenity" value="Power Backup"> Power backup</label>
+        </div>
+
+        <label for="ownerPhone">Your contact number</label>
+        <input type="tel" id="ownerPhone" placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
+
+        <label for="description">Description</label>
+        <textarea id="description" rows="4" placeholder="Describe the room, nearby colleges, transport, rules etc." required></textarea>
+
+        <label for="roomImage">Upload room photos (up to 3, max 1 MB each)</label>
+        <input type="file" id="roomImage" accept="image/*" multiple>
+        <div id="imagePreviews" class="image-previews"></div>
+
+        <label class="check-label availability-check">
+          <input type="checkbox" id="roomAvailable" checked> Room is currently available
+        </label>
+
+        <button class="btn btn-primary full" type="submit">Publish room listing</button>
+        <p class="form-message" id="formMessage"></p>
+      </form>
+
+      <aside class="owner-side">
+        <div class="owner-tip">
+          <div class="dashboard-icon">✦</div>
+          <h3>Tips for a good listing</h3>
+          <ul>
+            <li>Use a clear and accurate room name.</li>
+            <li>Mention the nearest college or landmark.</li>
+            <li>Upload real photos of your room.</li>
+            <li>Enter a working contact number.</li>
+            <li>Keep rent and availability updated.</li>
+          </ul>
+        </div>
+
+        <div class="owner-listings">
+          <h3>Your listings</h3>
+          <div id="ownerRoomContainer"></div>
+        </div>
+
+        <div class="owner-listings appointment-owner-panel">
+          <h3>Visit requests</h3>
+          <div id="ownerAppointmentContainer"><p class="muted">No visit requests yet.</p></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="detailsScreen" class="screen hidden section-wrap">
+    <button class="btn btn-light back-detail" id="detailsBack">← Back to rooms</button>
+    <div id="detailsContent"></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="brand footer-brand">Rent<span>Ease</span></div>
+  <p>Made for finding spaces around Dehradun, Uttarakhand.</p>
+  <small>Student project</small>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html> 
